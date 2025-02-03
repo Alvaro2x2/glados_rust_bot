@@ -112,7 +112,7 @@ function getServer() {
     if (!fileConfig) return null;
     
     const config = fileConfig.server;
-    console.log('Server config from file:', config);
+    //console.log('Server config from file:', config);
     return validateServerConfig(config, true);
 }
 
@@ -124,7 +124,7 @@ function getUser() {
     if (!fileConfig) return null;
     
     const config = fileConfig.user;
-    console.log('User config from file:', config);
+    //console.log('User config from file:', config);
     return validateUserConfig(config, true);
 }
 

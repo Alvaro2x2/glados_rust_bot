@@ -56,7 +56,7 @@ describe('Craft Cost Module', () => {
     test('should calculate costs when valid parameters are provided', () => {
       handleCraftCost(mockRustplus, 'sender', ':craftcost rocket 2');
       expect(mockRustplus.sendTeamMessage).toHaveBeenCalledWith(
-        expect.stringContaining('Rocket cost')
+        expect.stringContaining('Rocket crafting costs:')
       );
     });
   });
@@ -73,7 +73,7 @@ describe('Craft Cost Module', () => {
         expect.stringContaining(`Total gunpowder needed: ${expectedGunpowder}`)
       );
       expect(mockRustplus.sendTeamMessage).toHaveBeenCalledWith(
-        expect.stringContaining(`Total sulfur cost: ${expectedSulfurFromGunpowder + expectedSulfurFromExplosives}`)
+        expect.stringContaining(`Total sulfur required: ${expectedSulfurFromGunpowder + expectedSulfurFromExplosives}`)
       );
     });
 
@@ -88,7 +88,7 @@ describe('Craft Cost Module', () => {
         expect.stringContaining(`Total gunpowder needed: ${explosiveGunpowder}`)
       );
       expect(mockRustplus.sendTeamMessage).toHaveBeenCalledWith(
-        expect.stringContaining(`Total sulfur cost: ${gunpowderSulfurCost + explosiveSulfur}`)
+        expect.stringContaining(`Total sulfur required: ${gunpowderSulfurCost + explosiveSulfur}`)
       );
     });
 
@@ -102,7 +102,7 @@ describe('Craft Cost Module', () => {
         expect.stringContaining(`Total gunpowder needed: ${expectedGunpowder}`)
       );
       expect(mockRustplus.sendTeamMessage).toHaveBeenCalledWith(
-        expect.stringContaining(`Total sulfur cost: ${expectedSulfur}`)
+        expect.stringContaining(`Total sulfur required: ${expectedSulfur}`)
       );
     });
 
