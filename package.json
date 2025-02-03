@@ -1,0 +1,26 @@
+{
+  "name": "rustbot",
+  "version": "1.0.0",
+  "description": "rustbot",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "start": "node index.js",
+    "listener": "node listener/index.js fcm-listen"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@liamcottle/rustplus.js": "^2.3.0",
+    "configstore": "^6.0.0",
+    "node-prefs": "^1.0.8",
+    "push-receiver": "^2.1.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0"
+  }
+}

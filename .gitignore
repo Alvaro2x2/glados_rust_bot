@@ -1,0 +1,9 @@
+*.txt
+node_modules
+config/config.js
+rustplus.config.json
+listener/rustplus.config.json
+cline_docs/
+test.json
+config.js
+*.log
