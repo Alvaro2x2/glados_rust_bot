@@ -32,7 +32,8 @@ const COMMANDS = {
     COINFLIP: 'coinflip',
     ECOST: 'ecost',
     HELP: 'help',
-    SEARCH: 'search'
+    SEARCH: 'search',
+    TASK: 'task'
 };
 
 // Initialize device preferences
@@ -264,13 +265,41 @@ async function initializeRustPlus() {
                             case COMMANDS.HELP:
                                 rustplus.sendTeamMessage("GLaDOS: Available commands: :off/on DEVICE_NAME, :time, :status, :map, :save DEVICE_NAME, :note, :coinflip, :craftcost ITEM QUANTITY, :ecost ITEM, :rsearch ITEMNAME");
                                 break;
-                            case COMMANDS.SEARCH:
+case COMMANDS.SEARCH:
                                 const itemName = teamMessage.split(' ')[1];
                                 if (itemName === undefined) {
                                     rustplus.sendTeamMessage("GLaDOS: Item name required, the command is: :rsearch ITEMNAME.");
                                     break;
                                 }
                                 rsearchHandler.rsearch(rustplus, sender, itemName);
+                                break;
+                            case COMMANDS.TASK:
+                                {
+                                    const args = teamMessage.split(' ').slice(1);
+                                    const RTask = require('./rtask');
+                                    const taskManager = new RTask();
+                                    if (args.length > 0) {
+                                        const subCommand = args[0];
+                                        switch(subCommand) {
+                                            case 'search':
+                                                rustplus.sendTeamMessage(taskManager.createTask(args.join(' ')));
+                                                break;
+                                            case 'status':
+                                                rustplus.sendTeamMessage(taskManager.getStatus());
+                                                break;
+                                            case 'stop':
+                                                rustplus.sendTeamMessage(taskManager.stopTask(args[1] || ""));
+                                                break;
+                                            case 'delete':
+                                                rustplus.sendTeamMessage(taskManager.deleteTask(args[1] || ""));
+                                                break;
+                                            default:
+                                                rustplus.sendTeamMessage("GLaDOS: Unknown task subcommand. Available: search, status, stop, delete");
+                                        }
+                                    } else {
+                                        rustplus.sendTeamMessage("GLaDOS: No task subcommand provided");
+                                    }
+                                }
                                 break;
                             default:
                                 rustplus.sendTeamMessage(`GLaDOS: '${command}' is not a recognized command. Use :help to see available commands`);
