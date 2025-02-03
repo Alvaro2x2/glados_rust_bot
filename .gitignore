@@ -7,3 +7,5 @@ cline_docs/
 test.json
 config.js
 *.log
+config-sus.js
+config-sus.js.json
