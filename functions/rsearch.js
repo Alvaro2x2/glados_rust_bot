@@ -1,5 +1,6 @@
 const itemsConfig = require('../config/items_config');
 const rpositionHandler = require('./rposition');
+const configSU = require('../config/config-su'); 
 
 /**
  * Searches for items in vending machines across the map
@@ -39,7 +40,7 @@ async function rsearch(rustplus, sender, itemName) {
               continue;
             }
 
-            const grid = rpositionHandler.getGrid(vendingMachine.x, vendingMachine.y, 4000);
+            const grid = rpositionHandler.getGrid(vendingMachine.x, vendingMachine.y, configSU.getServer().mapSize);
 
             // Send item location and price information
             const message = `GLaDOS: x${order.quantity} :${itemName}: at ${grid} - Price: ${order.costPerItem} ${currencyName} - Stock: ${order.amountInStock}`;
