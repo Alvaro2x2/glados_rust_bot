@@ -74,9 +74,14 @@ npm start
   - `:note remove <number>` - Delete note by index
   - `:note clear` - Delete all notes
 - `:save <name>` - First on the smart switch select pair device, then use the command :save <name> to save the smart switch.
-- `:clear` - Clear all dispositives (Temporary until an automatic function is created to remove non-existent devices.)
+- `:clear` - Clear all dispositives (Temporary until an automatic function is created to remove non-existent devices.A)
 - `:craftcost <item> <quantity>` - Calculate materials needed to craft items (e.g. `:craftcost c4 2`)
 - `:search <item>` - Search for items in vending machines (e.g. `:search metal`)
+- `:task` - Task management commands:
+  - `:task search <item> <quantity> <currency> <maxPrice>` - Schedule recurring search for items in vending machines (e.g. `:task     search jackhammer 1 scrap 100`)
+  - `:task status` - List all active tasks
+  - `:task stop <id>` - Stop a specific task
+  - `:task delete <id>` - Delete a specific task
 - `:coinflip` - Flip a coin (returns heads or tails)
 - `:help` - Show list of available commands
 
@@ -90,6 +95,7 @@ npm start
 - Basic device control
 - Crafting cost calculation
 - Search in existing vending machines
+- Automated task system for item searches
 - Basic note system
 - FCM registration and listening
 - Steam linking

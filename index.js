@@ -157,6 +157,17 @@ async function initializeRustPlus() {
 
                         console.log('Server info received:', message.response.info);
                         rmapsize.mapsize(message);
+                        
+                        // Initialize or update taskManager
+                        if (!global.taskManager) {
+                            const RTask = require('./functions/rtask');
+                            global.taskManager = new RTask(rustplus);
+                            console.log('Task manager initialized');
+                        } else {
+                            global.taskManager.rustplus = rustplus;
+                            console.log('Task manager updated with new rustplus instance');
+                        }
+
                         // Start heartbeat after successful connection
                         startHeartbeat(rustplus);
 
@@ -275,23 +286,30 @@ case COMMANDS.SEARCH:
                                 break;
                             case COMMANDS.TASK:
                                 {
+                                    // Initialize taskManager if not exists
+                                    if (!global.taskManager) {
+                                        const RTask = require('./functions/rtask');
+                                        global.taskManager = new RTask(rustplus);
+                                    } else {
+                                        // Update rustplus instance in existing taskManager
+                                        global.taskManager.rustplus = rustplus;
+                                    }
+
                                     const args = teamMessage.split(' ').slice(1);
-                                    const RTask = require('./rtask');
-                                    const taskManager = new RTask();
                                     if (args.length > 0) {
                                         const subCommand = args[0];
                                         switch(subCommand) {
                                             case 'search':
-                                                rustplus.sendTeamMessage(taskManager.createTask(args.join(' ')));
+                                                rustplus.sendTeamMessage(global.taskManager.createTask(args.join(' '), rustplus));
                                                 break;
                                             case 'status':
-                                                rustplus.sendTeamMessage(taskManager.getStatus());
+                                                rustplus.sendTeamMessage(global.taskManager.getStatus());
                                                 break;
                                             case 'stop':
-                                                rustplus.sendTeamMessage(taskManager.stopTask(args[1] || ""));
+                                                rustplus.sendTeamMessage(global.taskManager.stopTask(args[1] || ""));
                                                 break;
                                             case 'delete':
-                                                rustplus.sendTeamMessage(taskManager.deleteTask(args[1] || ""));
+                                                rustplus.sendTeamMessage(global.taskManager.deleteTask(args[1] || ""));
                                                 break;
                                             default:
                                                 rustplus.sendTeamMessage("GLaDOS: Unknown task subcommand. Available: search, status, stop, delete");

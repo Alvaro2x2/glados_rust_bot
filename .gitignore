@@ -9,3 +9,4 @@ config.js
 *.log
 config-sus.js
 config-sus.js.json
+functions/rtasks.json
